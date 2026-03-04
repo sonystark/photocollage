@@ -542,7 +542,7 @@ document.getElementById('frameInput').addEventListener('change', function(e) {
     overlay.style.display = 'none';
     // show labels on dropzones now that frame is selected
     canvasWrapper.querySelectorAll('.drop-zone').forEach(z => {
-      z.setAttribute('data-label', 'Drop Photo or Click to Load');
+      z.setAttribute('data-label', 'Drop Photo or Browse');
     });
     drawCanvas();
   };
