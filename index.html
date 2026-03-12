@@ -252,7 +252,7 @@ function drawCanvas() {
 document.getElementById('downloadBtn').addEventListener('click', () => {
   drawCanvas();
   const link = document.createElement('a');
-  link.download = 'snapstudio_photoframe.jpg';
+  link.download = 'flashpop_export.jpg';
   link.href = canvas.toDataURL('image/jpeg', 1.0);
   link.click();
 });
