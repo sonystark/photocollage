@@ -2,393 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>BLINK! Demo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+  <title>Flashpop Studio</title>
+  <link rel="icon" type="image/png" href="https://i.imgur.com/RFJvtpt.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins&display=swap" rel="stylesheet">
   <style>
     html, body {
     overflow: hidden;
     margin: 0;
     padding: 0;
-    font-family: 'Zen Dots', sans-serif !important;
-    background: linear-gradient(to bottom, #FFFFFF, #0F4490);
+    font-family: "Comfortaa", sans-serif;
     color: #fff;
     text-align: center;
     cursor: url('https://cdn.custom-cursor.com/db/9814/32/starter-3d-holographic-pixel-cursor.png'), auto;
-	-webkit-user-select: none; /* Chrome, Safari */
+	  -webkit-user-select: none; /* Chrome, Safari */
     -moz-user-select: none;    /* Firefox */
     -ms-user-select: none;     /* IE/Edge lama */
     user-select: none;         /* Standar */
     }
-
-    #bg-wrap {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      }
-    #bg-wrap svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-      }
-
-    }
-    h1 {
-    margin: 20px 0;
-    font-size: 60x;
-    }
-    .subtitle {  
-    <!-- rubah style dan warna subtitle sonystark disini -->
-      font-family: 'Zen Dots', sans-serif;
-      font-weight: bold;
-      font-size: 18px;
-      margin-top: -35px;
-      margin-bottom: 40px;
-      color: #000;
-      opacity: 0.5;
-      }
-    .controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-      }
-    .select-wrapper {
-      position: relative;
-      width: 250px;
-      }
-    .select-wrapper::after {
-      content: '▼';
-      position: absolute;
-      top: 50%;
-      right: 20px;
-      transform: translateY(-50%);
-      pointer-events: none;
-      color: #000;
-      font-size: 14px;
-    }
+    body::before { content:""; position:fixed; top:0; left:0; width:100%; height:100%; background: #ff3dc0; z-index:-2; }
     
-select.custom-select {
-appearance: none;
-    font-family: 'Montserrat', sans-serif !important;
-    width: 100%;
-    font-size: 16px;
-    padding: 12px 20px;
-    border-radius: 9999px;
-    border: none;
-    background: linear-gradient(45deg, #fff, #eee);
-    color: #000;
-    font-weight: bold;
-    box-shadow: 0 4px 0 #aaa;
-    cursor: url('https://cdn.custom-cursor.com/db/9813/32/starter-3d-holographic-pixel-pointer.png'), pointer;
-    }
-    select.custom-select:hover {
-      filter: brightness(1.1);
-      box-shadow: 0 2px 0 #fff;
-      transform: scale(1.03);
-      }
-    .file-input-wrapper {
-      position: relative;
-      display: inline-block;
-      }
-    .file-input-wrapper input[type=file] {
-      position: absolute;
-      left: 0;
-      top: 0;
-      opacity: 0;
-      width: 100%;
-      height: 100%;
-      cursor: url('https://cdn.custom-cursor.com/db/9813/32/starter-3d-holographic-pixel-pointer.png'), pointer;
-      }
-    .file-input-label {
-      font-family: 'Montserrat', sans-serif !important;
-	  background: linear-gradient(45deg, #1ca9c9, #0047ab);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 9999px;
-      font-size: 16px;
-      font-weight: bold;
-      box-shadow: 0 4px 0 #003366;
-      cursor: url('https://cdn.custom-cursor.com/db/9813/32/starter-3d-holographic-pixel-pointer.png'), pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-    .file-input-label:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
-      }
-    .file-input-label:active {
-      transform: scale(0.95);
-      box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.2);
-      }
+    body::after { content: ""; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 1500px; height: 100%; background-image: url("https://i.imgur.com/Xg6Yrg6.png"); background-size: contain; background-repeat: no-repeat; background-position: center; filter: blur(30px); opacity: 1; z-index: -1; pointer-events: none; }
+    
+    .noise-layer { position:fixed; top:0; left:0; width:100%; height:100%; background-image:url("data:image/svg+xml;charset=utf-8;base64,PHN2ZyB2aWV3Qm94PScwIDAgNTEyIDUxMicgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz4KICA8ZmlsdGVyIGlkPSdub2lzZUZpbHRlcic+CiAgICA8ZmVUdXJidWxlbmNlIAogICAgICB0eXBlPSdmcmFjdGFsTm9pc2UnIAogICAgICBiYXNlRnJlcXVlbmN5PScwLjcnCiAgICAgIG51bU9jdGF2ZXM9JzMnIAogICAgICBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+CiAgICA8ZmVDb2xvck1hdHJpeCBpbj0idHVyYnVsZW5jZSIgdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPgoKICAgIDxmZUNvbXBvbmVudFRyYW5zZmVyPgogICAgICA8ZmVGdW5jUiB0eXBlPSJkaXNjcmV0ZSIgdGFibGVWYWx1ZXM9IjAgMSIgLz4KICAgICAgPGZlRnVuY0cgdHlwZT0iZGlzY3JldGUiIHRhYmxlVmFsdWVzPSIwIDEiIC8+CiAgICAgIDxmZUZ1bmNCIHR5cGU9ImRpc2NyZXRlIiB0YWJsZVZhbHVlcz0iMCAxIiAvPgogICAgPC9mZUNvbXBvbmVudFRyYW5zZmVyPgogIDwvZmlsdGVyPgogIAogIDxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbHRlcj0ndXJsKCNub2lzZUZpbHRlciknLz4KPC9zdmc+"); opacity:0.08; z-index:-1; pointer-events:none; }
+    
+    #bg-wrap { position: fixed; top: 0; left: 0; z-index: -1; width: 100vw; height: 100vh; overflow: hidden; }
+    #bg-wrap svg { width: 100%; height: 100%; display: block; } }
+
+    h1 { margin: 20px 0; font-size: 60px; }
+    .logo-banner { width: 420px; height: auto; margin-top: 30px; margin-bottom: 5px; }
+    .subtitle { font-family: "Poppins", sans-serif !important; font-weight: 500; font-size: 12px; letter-spacing: 1px; margin-top: 5px; margin-bottom: 20px; color: white; opacity: 0.7; }
+    .controls { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+    .select-wrapper { position: relative; width: 250px; }
+    .select-wrapper::after { content: '▼'; position: absolute; top: 50%; right: 20px; transform: translateY(-50%); pointer-events: none; color: #000; font-size: 14px; }
+    
+    select.custom-select { appearance: none; font-family: 'Comfortaa', sans-serif !important; width: 100%; font-size: 16px; padding: 12px 20px; border-radius: 9999px; border: 3px solid #e279b4; background: white; color: none; font-weight: bold; box-shadow: 0 4px 0 #e279b4; cursor: url('https://cdn.custom-cursor.com/db/9813/32/starter-3d-holographic-pixel-pointer.png'), pointer; }
+    select.custom-select:hover { filter: brightness(1.1); box-shadow: 0 2px 0 #fff; transform: scale(1.03); }
+    
+    .file-input-wrapper { position: relative; }
+    .file-input-wrapper input[type=file] {position: absolute; left: 0; top: 0; opacity: 0; width: 100%; height: 100%; cursor: url('https://cdn.custom-cursor.com/db/9813/32/starter-3d-holographic-pixel-pointer.png'), pointer; }
+    
+    #templatePick { font-family: 'Comfortaa', sans-serif !important; font-weight: bold; background: white; color: #e279b4; padding: 12px 24px; border-radius: 9999px; border: 3px solid #f2b929; font-size: 16px; box-shadow: 0 4px 0 #f2b929; cursor: url('https://cdn.custom-cursor.com/db/9813/32/starter-3d-holographic-pixel-pointer.png'), pointer; transition: transform 0.1s ease; }
+    #templatePick:hover { transform: translateY(-0.33em); }
+    #templatePick:active { transform: translateY(0); }
       
-#printBtn.green-button {
-  font-family: 'Montserrat', sans-serif !important;
-  background: linear-gradient(45deg, #1ca9c9, #0047ab);
-  color: white;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 9999px;
-  box-shadow: 0 4px 0 #003366;
-  cursor: url('https://cdn.custom-cursor.com/db/9813/32/starter-3d-holographic-pixel-pointer.png'), pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-#printBtn.green-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-#printBtn.green-button:active {
-  transform: scale(0.95);
-  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.2);
-  }
+    #printBtn.green-button { font-family: 'Comfortaa', sans-serif !important; background: white; color: #e279b4; padding: 12px 24px; font-size: 16px; font-weight: bold; border: 3px solid #f2b929; border-radius: 9999px; box-shadow: 0 4px 0 #f2b929; cursor: url('https://cdn.custom-cursor.com/db/9813/32/starter-3d-holographic-pixel-pointer.png'), pointer; transition: transform 0.1s ease; }
+    #printBtn.green-button:hover { transform: translateY(-0.33em); }
+    #printBtn.green-button:active { transform: translateY(0); }
 
-#downloadBtn{
-  font-family: 'Montserrat', sans-serif !important;
-  background: linear-gradient(45deg, #1ca9c9, #0047ab);
-  color: white;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 9999px;
-  box-shadow: 0 4px 0 #003366;
-  cursor: url('https://cdn.custom-cursor.com/db/9813/32/starter-3d-holographic-pixel-pointer.png'), pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-#downloadBtn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-#downloadBtn:active {
-  transform: scale(0.95);
-  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.2);
-  }
-#previewContainer {
-  display: flex;
-  justify-content: center;
-  }
-#canvasWrapper {
-  position: relative;
-  transform: scale(0.35);
-  transform-origin: top center;
-  }
-#canvas {
-  display: block;
-  border: 2px solid #000;
-  background: rgba(255, 255, 255, 0.2);
-  }
-  .drop-zone {
-    position: absolute;
-    cursor: url('https://cdn.custom-cursor.com/db/9814/32/starter-3d-holographic-pixel-cursor.png'), pointer;
-    }
-  .drop-zone::before {
-    content: attr(data-label);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #333;
-    font-size: 60px;
-    font-weight: bold;
-    text-align: center;
-    pointer-events: none;
-    white-space: pre-line;
-    }
-  .drop-zone input {
-    display: none;
-    }
-#overlayMessage {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 60px;
-  font-weight: bold;
-  color: #333;
-  pointer-events: none;
-  z-index: 10;
-  white-space: pre-line;
-  }
+    #downloadBtn { font-family: 'Comfortaa', sans-serif !important; background: white; color: #e279b4; padding: 12px 24px; font-size: 16px; font-weight: bold; border: 3px solid #f2b929; border-radius: 9999px; box-shadow: 0 4px 0 #f2b929; cursor: url('https://cdn.custom-cursor.com/db/9813/32/starter-3d-holographic-pixel-pointer.png'), pointer; transition: transform 0.1s ease; }
+    #downloadBtn:hover { transform: translateY(-0.33em); }
+    #downloadBtn:active { transform: translateY(0); }
+    
+    #previewContainer { display: flex; justify-content: center; }
+    
+    #canvasWrapper { position: relative; transform: scale(0.35); transform-origin: top center; }
+    #canvas { display: block; border: 2px solid #000; background: rgba(255, 255, 255, 0.2); }
+    
+    .drop-zone { position: absolute; cursor: url('https://cdn.custom-cursor.com/db/9814/32/starter-3d-holographic-pixel-cursor.png'), pointer; }
+    .drop-zone::before { content: attr(data-label); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #333; font-size: 60px; font-weight: bold; text-align: center; pointer-events: none; white-space: pre-line; }
+    .drop-zone input { display: none; }
 
-/* Tombol WhatsApp */
-.Btn {
-  font-family: 'Montserrat', sans-serif !important;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 70px;
-  height: 70px;
-  border: none;
-  border-radius: 50%;
-  cursor: url('https://cdn.custom-cursor.com/db/9813/32/starter-3d-holographic-pixel-pointer.png'),  pointer;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 9999;
-  overflow: hidden;
-  transition-duration: 0.3s;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-  background: linear-gradient(45deg, #25d366, #128c7e);
-  }
+    #overlayMessage { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 60px; font-weight: bold; color: #333; pointer-events: none; z-index: 10; white-space: pre-line; }
 
-.sign {
-  width: 100%;
-  transition-duration: 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  }
+    /* Tombol WhatsApp */
+    .Btn { font-family: 'Montserrat', sans-serif !important; display: flex; align-items: center; justify-content: flex-start; width: 70px; height: 70px; border: none; border-radius: 50%; cursor: url('https://cdn.custom-cursor.com/db/9813/32/starter-3d-holographic-pixel-pointer.png'), pointer; position: fixed; bottom: 20px; right: 20px; z-index: 9999; overflow: hidden; transition-duration: 0.3s; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199); background: linear-gradient(45deg, #25d366, #128c7e); }
 
-.sign svg {
-  width: 30px;
-  }
-
-.sign svg path {
-  fill: white;
-  }
+    .sign { width: 100%; transition-duration: 0.3s; display: flex; align-items: center; justify-content: center; }
+    .sign svg { width: 30px; }
+    .sign svg path { fill: white; }
   
-.text {
-  position: absolute;
-  right: 0%;
-  width: 0%;
-  opacity: 0;
-  color: white;
-  font-size: 1.6em;
-  font-weight: 600;
-  transition-duration: 0.3s;
-  }
+    .text { position: absolute; right: 0%; width: 0%; opacity: 0; color: white; font-size: 1.6em; font-weight: 600; transition-duration: 0.3s; }
 
-.Btn:hover {
-  width: 230px;
-  border-radius: 40px;
-  transition-duration: 0.3s;
-  }
+    .Btn:hover { width: 230px; border-radius: 40px; transition-duration: 0.3s; }
+    .Btn:hover .sign { width: 30%; transition-duration: 0.3s; padding-left: 10px; }
+    .Btn:hover .text { opacity: 1; width: 70%; transition-duration: 0.3s; padding-right: 10px; }
+    .Btn:active { transform: translate(2px, 2px); }
 
-.Btn:hover .sign {
-  width: 30%;
-  transition-duration: 0.3s;
-  padding-left: 10px;
-  }
+    /* Overlay gelap */
+    .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.8); z-index: 9998; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; }
 
-.Btn:hover .text {
-  opacity: 1;
-  width: 70%;
-  transition-duration: 0.3s;
-  padding-right: 10px;
-  }
-  
-.Btn:active {
-  transform: translate(2px, 2px);
-  }
+    /* Card container dengan animasi */
+    .popup-card { opacity: 0; transform: scale(0.95); transition: opacity 0.4s ease, transform 0.3s ease; }
 
-/* Overlay gelap */
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 9998;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
-  }
+    /* Saat aktif */
+    .popup-overlay.active { opacity: 1; visibility: visible; }
+    .popup-overlay.active .popup-card { opacity: 1; transform: scale(1); }
 
-/* Card container dengan animasi */
-.popup-card {
-  opacity: 0;
-  transform: scale(0.95);
-  transition: opacity 0.4s ease, transform 0.3s ease;
-  }
+    .card { transform: scale(1.0); position: relative; width: 400px; height: 500px; border-radius: 14px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 
-/* Saat aktif */
-.popup-overlay.active {
-  opacity: 1;
-  visibility: visible;
-  }
-  
-.popup-overlay.active .popup-card {
-  opacity: 1;
-  transform: scale(1);
-  }
+    .bg { transform: scale(1.0); position: absolute; top: 10px; left: 10px; width: 380px; height: 480px; z-index: 2; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(54px); border-radius: 10px; outline: 2px solid white; display: flex; align-items: center; justify-content: space-between; padding: 16px; box-sizing: border-box; }
 
-.card {
-  transform: scale(1.0);
-  position: relative;
-  width: 400px;
-  height: 500px;
-  border-radius: 14px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  }
+    .blob { transform: scale(1.0); position: absolute; z-index: 1; top: 50%; left: 50%; width: 350px; height: 350px; border-radius: 50%; background-color: #25d366; opacity: 1; filter: blur(30px); animation: blob-bounce 5s infinite ease; }
 
-.bg {
-  transform: scale(1.0);
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 380px;
-  height: 480px;
-  z-index: 2;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(54px);
-  border-radius: 10px;
-  outline: 2px solid white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  box-sizing: border-box;
-  }
+    @keyframes blob-bounce {
+      0% { transform: translate(-100%, -100%) translate3d(0, 0, 0); }
+      25% { transform: translate(-100%, -100%) translate3d(100%, 0, 0); }
+      50% { transform: translate(-100%, -100%) translate3d(100%, 100%, 0); }
+      75% { transform: translate(-100%, -100%) translate3d(0, 100%, 0); }
+      100% { transform: translate(-100%, -100%) translate3d(0, 0, 0); }
+      }
 
-.blob {
-  transform: scale(1.0);
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  left: 50%;
-  width: 350px;
-  height: 350px;
-  border-radius: 50%;
-  background-color: #25d366;
-  opacity: 1;
-  filter: blur(30px);
-  animation: blob-bounce 5s infinite ease;
-  }
-
-@keyframes blob-bounce {
-  0% { transform: translate(-100%, -100%) translate3d(0, 0, 0); }
-  25% { transform: translate(-100%, -100%) translate3d(100%, 0, 0); }
-  50% { transform: translate(-100%, -100%) translate3d(100%, 100%, 0); }
-  75% { transform: translate(-100%, -100%) translate3d(0, 100%, 0); }
-  100% { transform: translate(-100%, -100%) translate3d(0, 0, 0); }
-  }
-
-.popup-text {
-    font-size: 16px;
-    color: #333;
-    text-align: center;
-    margin: 4px 0;
-    }
-.bg img {
-    width: 100%;
-    max-height: 90%;
-    object-fit: contain;
-    border-radius: 8px;
-    margin: 8px 0;
-    }
+    .popup-text { font-size: 16px; color: #333; text-align: center; margin: 4px 0; }
+    
+    .bg img { width: 100%; max-height: 90%; object-fit: contain; border-radius: 8px; margin: 8px 0; }
   
   </style>
 </head>
@@ -421,9 +139,10 @@ appearance: none;
   </div>
 </div>
 
-
-<h1 style="color: black; font-size: 54px;">BLINK! Photo Collage</h1>
-  <p class="subtitle">Trial Demo Version</p>
+<div class="noise-layer"></div>
+  
+<img class="logo-banner" src="https://i.imgur.com/Xg6Yrg6.png" alt="Flashpop Studio">
+  <p class="subtitle">powered by BLINK!</p>
 
 <div class="controls">
   <div class="select-wrapper">
@@ -431,7 +150,7 @@ appearance: none;
       <option value="1photo">1 Photo Portrait</option>
       <option value="1photolandscape">1 Photo Landscape</option>
       <option value="2photo">2 Photo Polaroid</option>
-	  <option value="Bundling">Bundling 3in1</option>
+	    <option value="Bundling">Bundling 3in1</option>
       <option value="4photo">4 Photo Portrait</option>
       <option value="6photo">6 Photo Portrait</option>
       <option value="filmstrip">Filmstrip Portrait</option>
@@ -439,12 +158,12 @@ appearance: none;
   </div>
 
   <div class="file-input-wrapper">
-    <label class="file-input-label" for="frameInput">Pick a Frame</label>
-    <input type="file" id="frameInput" accept="image/png">
+    <button id="templatePick">Pick a Frame</button>
+    <input type="file" id="frameInput" accept="image/png" hidden>
   </div>
 
   <button id="downloadBtn">Export</button>
-<button id="printBtn" class="green-button">Print</button>
+  <button id="printBtn" class="green-button">Print</button>
 </div>
 
 <div id="previewContainer">
@@ -538,6 +257,10 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
   link.click();
 });
 
+  document.getElementById("templatePick").addEventListener("click", function(){
+    document.getElementById("frameInput").click();
+});
+  
 document.getElementById('frameInput').addEventListener('change', function(e) {
   const file = e.target.files[0];
   const img = new Image();
