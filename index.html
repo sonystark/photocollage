@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <title>Flashpop Studio</title>
-  <link rel="icon" type="image/png" href="https://i.imgur.com/RFJvtpt.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Poppins&display=swap" rel="stylesheet">
@@ -103,7 +102,13 @@
       75% { transform: translate(-100%, -100%) translate3d(0, 100%, 0); }
       100% { transform: translate(-100%, -100%) translate3d(0, 0, 0); }
       }
-
+    
+    #printArea { display: none; }
+    @media print { body * { height: 6in; overflow: hidden; visibility: hidden; }
+    #printArea { display: block; position: fixed; top: 0; left: 0; width: 4in; height: 6in; }
+    #printArea * { visibility: visible; }
+    #printImage { width: 100%; height: 100%; object-fit: contain; } }
+    
     .popup-text { font-size: 16px; color: #333; text-align: center; margin: 4px 0; }
     
     .bg img { width: 100%; max-height: 90%; object-fit: contain; border-radius: 8px; margin: 8px 0; }
@@ -165,6 +170,8 @@
   <button id="downloadBtn">Export</button>
   <button id="printBtn" class="green-button">Print</button>
 </div>
+  
+  <div id="printArea"><img id="printImage"></div>
 
 <div id="previewContainer">
   <div id="canvasWrapper">
@@ -305,24 +312,70 @@ document.getElementById('frameSelector').addEventListener('change', e => {
 
 document.getElementById('frameSelector').dispatchEvent(new Event('change'));
 
-document.getElementById('printBtn').addEventListener('click', () => {
+document.getElementById("printBtn").addEventListener("click", function () {
   drawCanvas();
-  const win = window.open('', '_blank');
-  const imgData = canvas.toDataURL('image/jpeg', 1.0);
-  win.document.write('<html><head><title>Print Preview</title></head><body style="margin:0;"><img src="' + imgData + '" style="width:317.4996mm;"></body></html>');
-  win.document.close();
+  const canvas = document.getElementById("canvas");
+  const imgData = canvas.toDataURL("image/jpeg", 1.0);
+  const isPortrait = canvas.height >= canvas.width;
+  const width = isPortrait ? "4in" : "6in";
+  const height = isPortrait ? "6in" : "4in";
+  const printWindow = document.createElement("iframe");
+  printWindow.style.position = "fixed";
+  printWindow.style.right = "0";
+  printWindow.style.bottom = "0";
+  printWindow.style.width = "0";
+  printWindow.style.height = "0";
+  printWindow.style.border = "0";
+  document.body.appendChild(printWindow);
+  const doc = printWindow.contentWindow.document;
+  doc.open();
+  doc.write(`
+    <html>
+    <head>
+      <title>Print</title>
+      <style>
+        @page {
+          size: ${width} ${height};
+          margin: 0;
+        }
+        html, body {
+          margin:0;
+          padding:0;
+        }
+        img{
+          width:${width};
+          height:${height};
+          object-fit:contain;
+        }
+      </style>
+    </head>
+    <body>
+      <img src="${imgData}">
+    </body>
+    </html>
+  `);
+  doc.close();
+  printWindow.onload = function () {
+    setTimeout(() => {
+      printWindow.contentWindow.focus();
+      printWindow.contentWindow.print();
+      setTimeout(() => {
+        document.body.removeChild(printWindow);
+      }, 1000);
+    }, 200);
+  };
 });
-
+  
 function togglePopup() {
   const popup = document.getElementById("popupCard");
   popup.style.display = popup.style.display === "none" ? "block" : "none";
 }
-
+  
 function showPopup() {
   const overlay = document.getElementById("popupOverlay");
   overlay.classList.add("active");
 }
-
+  
 function hidePopup() {
   const overlay = document.getElementById("popupOverlay");
   overlay.classList.remove("active");
